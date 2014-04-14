@@ -10,25 +10,37 @@ from django_extensions.db.models import TimeStampedModel
 class Author(TimeStampedModel):
     name = models.CharField(max_length=200)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Collection(TimeStampedModel):
     name = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Editor(TimeStampedModel):
     name = models.CharField(max_length=200)
 
+    def __unicode__(self):
+        return self.name
+
 
 class ReaderLevel(TimeStampedModel):
     name = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Book(TimeStampedModel):
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200, blank=True)
     author = models.ForeignKey(Author)
-    illustrator = models.ForeignKey(Author, null=True, related_name='book_illustrator_set')
-    collection = models.ForeignKey(Collection, null=True)
+    illustrator = models.ForeignKey(Author, null=True, blank=True, related_name='book_illustrator_set')
+    collection = models.ForeignKey(Collection, null=True, blank=True)
     pub_date = models.DateTimeField('date published')
     reader_level = models.ForeignKey(ReaderLevel)
     nb_pages = models.IntegerField()
@@ -42,4 +54,6 @@ class Book(TimeStampedModel):
     #isbn = models.CharField(max_length=20)
     #cover = models.ImageField()
 
+    def __unicode__(self):
+        return self.title
 
