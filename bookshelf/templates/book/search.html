@@ -1,9 +1,17 @@
-{% if book_list %}
-    <ul>
-    {% for book in book_list %}
-        <li><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No book found.</p>
-{% endif %}
+{% extends "index.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="large-12 medium-12 columns">
+      {% if book_list %}
+          <ul>
+          {% for book in book_list %}
+              <li><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></li>
+          {% endfor %}
+          </ul>
+      {% else %}
+          <p>No book found.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

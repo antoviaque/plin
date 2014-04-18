@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plin</title>
+  <link rel="stylesheet" href='{% static "css/vendor/foundation.css" %}' />
+  <script src='{% static "js/vendor/modernizr.js" %}'></script>
+</head>
+<body>
+
+<div class="row">
+  <form>
+    <div class="large-4 columns">
+      <h1>Plin</h1>
+    </div>
+    <div class="large-6 columns">
+      <input type="text" placeholder="Procurar" />
+    </div>
+    <div class="large-2 columns">
+      <a href="#" class="small button">Buscar</a>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <div class="panel">
+      <div class="row">
+        <div class="large-1 medium-1 columns">
+          <a href="/">Início</a>
+        </div>
+        <div class="large-1 medium-1 columns">
+          <a href="#">Sobre</a>
+        </div>
+        <div class="large-1 medium-1 columns">
+          <a href="#">Contato</a>
+        </div>
+        <div class="large-7 medium-7 columns">
+          &nbsp;
+        </div>
+        <div class="large-1 medium-1 columns">
+          <a href="#">Login</a>
+        </div>
+        <div class="large-1 medium-1 columns">
+          <a href="#">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block content %}{% endblock %}
+
+<script src='{% static "js/vendor/jquery.js" %}'></script>
+<script src='{% static "js/vendor/foundation.min.js" %}'></script>
+<script>
+  $(document).foundation();
+</script>
+
+</body>
+</html>
