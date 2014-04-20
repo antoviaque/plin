@@ -89,3 +89,8 @@ STATICFILES_DIRS = (
 )
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
