@@ -87,3 +87,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
