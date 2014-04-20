@@ -46,9 +46,9 @@ class Book(TimeStampedModel):
     reader_level = models.ForeignKey(ReaderLevel)
     nb_pages = models.IntegerField()
     synopsis = models.TextField()
+    cover = models.ImageField(upload_to='covers')
 
     # TODO: use plugins for these fields
-    #cover = models.ImageField()
     #keywords = models.CharField(max_length=200)
     #language = models.CharField(max_length=2)
     #isbn = models.CharField(max_length=20)

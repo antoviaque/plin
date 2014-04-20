@@ -1,4 +1,5 @@
 /db.sqlite3
 /plin/local_settings.py
+/media/covers/*.*
 *~
 *.pyc
