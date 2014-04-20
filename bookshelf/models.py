@@ -35,6 +35,13 @@ class ReaderLevel(TimeStampedModel):
         return self.name
 
 
+class Keyword(TimeStampedModel):
+    name = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Book(TimeStampedModel):
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200, blank=True)
@@ -47,9 +54,9 @@ class Book(TimeStampedModel):
     nb_pages = models.IntegerField()
     synopsis = models.TextField()
     cover = models.ImageField(upload_to='covers')
+    keywords = models.ManyToManyField(Keyword)
 
     # TODO: use plugins for these fields
-    #keywords = models.CharField(max_length=200)
     #language = models.CharField(max_length=2)
     #isbn = models.CharField(max_length=20)
 
