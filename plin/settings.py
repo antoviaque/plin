@@ -146,8 +146,6 @@ LOGGING = {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(BASE_DIR, "plin.log"),
-            'maxBytes': 50000,
-            'backupCount': 2,
             'formatter': 'standard',
         },
         'console':{
