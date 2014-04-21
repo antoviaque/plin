@@ -62,7 +62,7 @@ class Keyword(TimeStampedModel):
 class Book(TimeStampedModel):
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200, blank=True)
-    isbn = models.CharField(max_length=13, validators=[validate_isbn])
+    isbn = models.CharField(max_length=13, unique=True, validators=[validate_isbn])
     author = models.ForeignKey(Author)
     illustrator = models.ForeignKey(Author, null=True, blank=True, related_name='book_illustrator_set')
     editor = models.ForeignKey(Editor)
