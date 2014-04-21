@@ -23,12 +23,15 @@ SECRET_KEY = 'xe4%f7@935gh2r^g14n6&j+v!5fp)jpvrnyahp-eiyx2@=j^=&'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
 ALLOWED_HOSTS = []
+
+SITE_ID = 1
 
 
 # Application definition
@@ -40,8 +43,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'south',
     'debug_toolbar',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     'bookshelf',
 )
 
@@ -52,6 +60,24 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request",
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 ROOT_URLCONF = 'plin.urls'
@@ -80,7 +106,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
@@ -90,7 +115,18 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+# Registration/login
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_USERNAME_REQUIRED = False
+LOGIN_REDIRECT_URL = '/'
+
+
+# Local settings
 
 try:
     from local_settings import *
