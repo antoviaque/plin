@@ -52,14 +52,14 @@
           {% endif %}
         </div>
         <div class="large-1 medium-1 columns">
-          <a href="/accounts/logout">Logout</a>
+          <a href="/accounts/logout?next={{ request.get_full_path }}">Logout</a>
         </div>
         {% else %}
         <div class="large-1 medium-1 columns">
-          <a href="/accounts/signup">Register</a>
+          <a href="/accounts/signup?next={{ request.get_full_path }}">Register</a>
         </div>
         <div class="large-1 medium-1 columns">
-          <a href="/accounts/login">Login</a>
+          <a href="/accounts/login?next={{ request.get_full_path }}">Login</a>
         </div>
         {% endif %}
       </div>
