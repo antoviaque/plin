@@ -87,8 +87,72 @@
 
 <script src='{% static "js/vendor/jquery.js" %}'></script>
 <script src='{% static "js/vendor/foundation.min.js" %}'></script>
-<script>
+<script type="text/javascript">
   $(document).foundation();
+</script>
+
+<script src='{% static "js/vendor/jquery.cookie.js" %}'></script>
+<script src='{% static "js/vendor/jquery.json.min.js" %}'></script>
+<script src='{% static "js/vendor/jquery.raty.min.js" %}'></script>
+<script type="text/javascript">
+  $(function() {
+    var csrftoken = $.cookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sameOrigin(url) {
+      // test that a given url is a same-origin URL
+      // url could be relative or scheme relative or absolute
+      var host = document.location.host; // host + port
+      var protocol = document.location.protocol;
+      var sr_origin = '//' + host;
+      var origin = protocol + sr_origin;
+      // Allow absolute or scheme relative URLs to same origin
+      return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+             (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+             // or any other URL that isn't scheme relative or absolute i.e relative.
+             !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+          // Send the token to same-origin, relative URLs only.
+          // Send the token only if the method warrants CSRF protection
+          // Using the CSRFToken value acquired earlier
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
+    $.fn.raty.defaults.path = '{% static "img/rating" %}';
+
+    $('.rating').each(function(index, rating_dom) {
+      $(rating_dom).raty({
+        starOff : 'star-off.png',
+        starOn  : 'star-on.png',
+        size    : 24,
+        {% if read_only %}
+        readOnly: true,
+        {% endif %}
+        score   : function() {
+          return $(this).attr('data-rating');
+        },
+        click   : function(rating, evt) {
+          var model_name = $(this).data('model'),
+              object_pk = $(this).data('pk');
+
+          $.ajax({
+            type: 'POST',
+            url: '/bookshelf/rate/' + model_name + '/' + object_pk + '/',
+            data: $.toJSON({rating: rating}),
+            dataType: 'json'
+          });
+        }
+      });
+    });
+  });
 </script>
 
 </body>

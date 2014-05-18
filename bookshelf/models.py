@@ -3,10 +3,12 @@
 
 import pyisbn
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 from django_languages.fields import LanguageField
+
+from djangoratings.fields import RatingField
 from south.modelsinspector import add_introspection_rules
 
 
@@ -74,9 +76,9 @@ class Book(TimeStampedModel):
     cover = models.ImageField(upload_to='covers')
     keywords = models.ManyToManyField(Keyword)
     synopsis = models.TextField()
+    rating = RatingField(range=5, can_change_vote=True)
 
     # TODO: use plugins for these fields
-    #votes = models.IntegerField(default=0)
     #comments = models.CharField(max_length=200)
 
     def __unicode__(self):
@@ -88,3 +90,22 @@ class Book(TimeStampedModel):
             return self.isbn
         else:
             return pyisbn.convert(self.isbn)
+
+    def get_display_rating(self, request):
+        """
+        The rating to display for a given book, given the request context (user/anonymous, IP...)
+        """
+        if request.user.is_authenticated():
+            rating = self.rating.get_rating_for_user(request.user, request.META['REMOTE_ADDR'])
+        else:
+            rating = self.rating.score
+        return rating
+
+    def set_user_rating(self, request, rating):
+        """
+        Set rating for a given user on the current book, using request context for auth/antispam
+        """
+        if not request.user.is_authenticated():
+            raise PermissionDenied
+
+        self.rating.add(score=rating, user=request.user, ip_address=request.META['REMOTE_ADDR'])

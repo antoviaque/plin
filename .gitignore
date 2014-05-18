@@ -2,5 +2,6 @@
 /plin/local_settings.py
 /media/covers/*.*
 /plin.log
+/build
 *~
 *.pyc

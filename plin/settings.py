@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'djangoratings',
     'bookshelf',
 )
 
@@ -124,6 +125,10 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_USERNAME_REQUIRED = False
 LOGIN_REDIRECT_URL = '/'
+
+
+# Ratings
+RATINGS_VOTES_PER_IP = 3
 
 
 # Logging
