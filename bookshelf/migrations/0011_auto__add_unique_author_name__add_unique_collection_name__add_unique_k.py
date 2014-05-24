@@ -1,0 +1,105 @@
+# -*- coding: utf-8 -*-
+from south.utils import datetime_utils as datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
+
+
+class Migration(SchemaMigration):
+
+    def forwards(self, orm):
+        # Adding unique constraint on 'Author', fields ['name']
+        db.create_unique(u'bookshelf_author', ['name'])
+
+        # Adding unique constraint on 'Collection', fields ['name']
+        db.create_unique(u'bookshelf_collection', ['name'])
+
+        # Adding unique constraint on 'Keyword', fields ['name']
+        db.create_unique(u'bookshelf_keyword', ['name'])
+
+        # Adding unique constraint on 'Editor', fields ['name']
+        db.create_unique(u'bookshelf_editor', ['name'])
+
+        # Adding unique constraint on 'ReaderLevel', fields ['name']
+        db.create_unique(u'bookshelf_readerlevel', ['name'])
+
+
+    def backwards(self, orm):
+        # Removing unique constraint on 'ReaderLevel', fields ['name']
+        db.delete_unique(u'bookshelf_readerlevel', ['name'])
+
+        # Removing unique constraint on 'Editor', fields ['name']
+        db.delete_unique(u'bookshelf_editor', ['name'])
+
+        # Removing unique constraint on 'Keyword', fields ['name']
+        db.delete_unique(u'bookshelf_keyword', ['name'])
+
+        # Removing unique constraint on 'Collection', fields ['name']
+        db.delete_unique(u'bookshelf_collection', ['name'])
+
+        # Removing unique constraint on 'Author', fields ['name']
+        db.delete_unique(u'bookshelf_author', ['name'])
+
+
+    models = {
+        u'bookshelf.author': {
+            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'Author'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '200'})
+        },
+        u'bookshelf.book': {
+            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'Book'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bookshelf.Author']"}),
+            'collection': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bookshelf.Collection']", 'null': 'True', 'blank': 'True'}),
+            'cover': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'editor': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bookshelf.Editor']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'illustrator': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'book_illustrator_set'", 'null': 'True', 'to': u"orm['bookshelf.Author']"}),
+            'isbn': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '13'}),
+            'keywords': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['bookshelf.Keyword']", 'symmetrical': 'False'}),
+            'language': ('django_languages.fields.LanguageField', [], {'max_length': '3'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'nb_pages': ('django.db.models.fields.IntegerField', [], {}),
+            'pub_year': ('django.db.models.fields.IntegerField', [], {}),
+            'rating_score': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
+            'rating_votes': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0', 'blank': 'True'}),
+            'reader_level': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bookshelf.ReaderLevel']"}),
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'title'"}),
+            'subtitle': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
+            'synopsis': ('django.db.models.fields.TextField', [], {}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+        },
+        u'bookshelf.collection': {
+            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'Collection'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '200'})
+        },
+        u'bookshelf.editor': {
+            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'Editor'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '200'})
+        },
+        u'bookshelf.keyword': {
+            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'Keyword'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '200'})
+        },
+        u'bookshelf.readerlevel': {
+            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'ReaderLevel'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '200'})
+        }
+    }
+
+    complete_apps = ['bookshelf']

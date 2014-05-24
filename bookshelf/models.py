@@ -28,35 +28,35 @@ def validate_isbn(isbn):
 # Classes #########################################################################################
 
 class Author(TimeStampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.name
 
 
 class Collection(TimeStampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.name
 
 
 class Editor(TimeStampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.name
 
 
 class ReaderLevel(TimeStampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.name
 
 
 class Keyword(TimeStampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.name
