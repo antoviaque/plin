@@ -70,7 +70,7 @@ class Book(TimeStampedModel):
     editor = models.ForeignKey(Editor)
     collection = models.ForeignKey(Collection, null=True, blank=True)
     language = LanguageField()
-    pub_date = models.DateTimeField('date published')
+    pub_year = models.IntegerField()
     reader_level = models.ForeignKey(ReaderLevel)
     nb_pages = models.IntegerField()
     cover = models.ImageField(upload_to='covers')
