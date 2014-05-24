@@ -13,22 +13,22 @@
       <div class="cover">
         <img src="{{ book.cover.url }}" />
       </div>
-      <div class="rating-row row">
+      <div class="overall-rating rating-row row">
         <div class="rating-label large-2 medium-2 columns">Plin rating:</div>
         <div class="rating-value large-10 medium-10 columns">
-          <div class="rating overall-rating" data-rating="{{ book.overall_rating }}"
-                                             data-model="book"
-                                             data-pk="{{ book.pk }}"></div>
-          <div class="votes">({{ book.rating_votes }} vote{{ book.rating_votes|pluralize }})</div>
+          <div class="rating" data-rating="{{ book.overall_rating }}"
+                              data-model="book"
+                              data-pk="{{ book.pk }}"></div>
+          <div class="votes">(<span class="rating-votes">{{ book.rating_votes }}</span> vote{{ book.rating_votes|pluralize }})</div>
         </div>
       </div>
       {% if request.user.is_authenticated %}
-      <div class="rating-row row">
+      <div class="user-rating rating-row row">
         <div class="rating-label large-2 medium-2 columns">Your rating:</div>
         <div class="rating-value large-10 medium-10 columns">
-          <div class="rating user-rating" data-rating="{{ book_user_rating }}"
-                                          data-model="book"
-                                          data-pk="{{ book.pk }}"></div>
+          <div class="rating" data-rating="{{ book_user_rating }}"
+                              data-model="book"
+                              data-pk="{{ book.pk }}"></div>
         </div>
       </div>
       {% endif %}
@@ -101,20 +101,22 @@
 <script src='{% static "js/vendor/jquery.raty.min.js" %}'></script>
 <script type="text/javascript">
   $(function() {
-    var raty_defaults = {
-        starOff : 'star-off.png',
-        starOn  : 'star-on.png',
-        size    : 24
-    };
+    var overall_rating_dom = $('.book-details .overall-rating'),
+        user_rating_dom = $('.book-details .user-rating'),
+        raty_defaults = {
+          starOff : 'star-off.png',
+          starOn  : 'star-on.png',
+          size    : 24
+        };
     $.fn.raty.defaults.path = '{% static "img/rating" %}';
 
-    $('.overall-rating').raty($.extend({}, raty_defaults, {
+    $('.rating', overall_rating_dom).raty($.extend({}, raty_defaults, {
       readOnly: 'true',
-      score   : $('.overall-rating').data('rating'),
+      score   : $('.rating', overall_rating_dom).data('rating'),
     }));
 
-    $('.user-rating').raty($.extend({}, raty_defaults, {
-      score   : $('.user-rating').data('rating'),
+    $('.rating', user_rating_dom).raty($.extend({}, raty_defaults, {
+      score   : $('.rating', user_rating_dom).data('rating'),
       click   : function(rating, evt) {
         var model_name = $(this).data('model'),
             object_pk = $(this).data('pk');
@@ -125,9 +127,10 @@
           data: $.toJSON({rating: rating}),
           dataType: 'json'
         }).done(function(response_data) {
-          $('.overall-rating').raty('readOnly', 'false');
-          $('.overall-rating').raty('score', response_data.overall_rating);
-          $('.overall-rating').raty('readOnly', 'true');
+          $('.rating', overall_rating_dom).raty('readOnly', 'false')
+                                          .raty('score', response_data.overall_rating)
+                                          .raty('readOnly', 'true');
+          $('.rating-votes', overall_rating_dom).html(response_data.rating_votes);
         });
       }
     }));

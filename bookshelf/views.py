@@ -33,5 +33,6 @@ def book_rate(request, book_pk):
 
     context = {
         'overall_rating': book.overall_rating,
+        'rating_votes': book.rating_votes,
     }
     return HttpResponse(json.dumps(context), content_type="application/json")
