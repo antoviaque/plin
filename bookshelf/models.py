@@ -91,6 +91,12 @@ class Book(TimeStampedModel):
         else:
             return pyisbn.convert(self.isbn)
 
+    def overall_rating(self):
+        """
+        Returns the cumulated public rating of the book
+        """
+        return self.rating.get_rating()
+
     def get_user_rating(self, request):
         """
         The rating the request user gave for a given book

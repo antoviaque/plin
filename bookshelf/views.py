@@ -21,7 +21,7 @@ def book_detail(request, book_pk):
     book = get_object_or_404(Book, pk=book_pk)
     context = {
         'book': book,
-        'book_rating': book.rating.get_rating(),
+        'book_rating': book.overall_rating,
         'book_nb_votes': book.rating_votes,
         'book_user_rating': book.get_user_rating(request),
     }
