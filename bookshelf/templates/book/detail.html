@@ -16,10 +16,9 @@
       <div class="rating-row row">
         <div class="rating-label large-2 medium-2 columns">Plin rating:</div>
         <div class="rating-value large-10 medium-10 columns">
-          <div class="rating" data-rating="{{ book.overall_rating }}"
-                              data-model="book"
-                              data-pk="{{ book.pk }}"
-                              data-read-only="true"></div>
+          <div class="rating overall-rating" data-rating="{{ book.overall_rating }}"
+                                             data-model="book"
+                                             data-pk="{{ book.pk }}"></div>
           <div class="votes">({{ book.rating_votes }} vote{{ book.rating_votes|pluralize }})</div>
         </div>
       </div>
@@ -27,10 +26,9 @@
       <div class="rating-row row">
         <div class="rating-label large-2 medium-2 columns">Your rating:</div>
         <div class="rating-value large-10 medium-10 columns">
-          <div class="rating" data-rating="{{ book_user_rating }}"
-                              data-model="book"
-                              data-pk="{{ book.pk }}"
-                              data-read-only="false"></div>
+          <div class="rating user-rating" data-rating="{{ book_user_rating }}"
+                                          data-model="book"
+                                          data-pk="{{ book.pk }}"></div>
         </div>
       </div>
       {% endif %}
@@ -103,31 +101,36 @@
 <script src='{% static "js/vendor/jquery.raty.min.js" %}'></script>
 <script type="text/javascript">
   $(function() {
-    $.fn.raty.defaults.path = '{% static "img/rating" %}';
-
-    $('.rating').each(function(index, rating_dom) {
-      console.log(rating_dom);
-      $(rating_dom).raty({
+    var raty_defaults = {
         starOff : 'star-off.png',
         starOn  : 'star-on.png',
-        size    : 24,
-        readOnly: $(rating_dom).data('read-only'),
-        score   : function() {
-          return $(this).attr('data-rating');
-        },
-        click   : function(rating, evt) {
-          var model_name = $(this).data('model'),
-              object_pk = $(this).data('pk');
+        size    : 24
+    };
+    $.fn.raty.defaults.path = '{% static "img/rating" %}';
 
-          $.ajax({
-            type: 'POST',
-            url: '/bookshelf/rate/' + model_name + '/' + object_pk + '/',
-            data: $.toJSON({rating: rating}),
-            dataType: 'json'
-          });
-        }
-      });
-    });
+    $('.overall-rating').raty($.extend({}, raty_defaults, {
+      readOnly: 'true',
+      score   : $('.overall-rating').data('rating'),
+    }));
+
+    $('.user-rating').raty($.extend({}, raty_defaults, {
+      score   : $('.user-rating').data('rating'),
+      click   : function(rating, evt) {
+        var model_name = $(this).data('model'),
+            object_pk = $(this).data('pk');
+
+        $.ajax({
+          type: 'POST',
+          url: '/bookshelf/rate/' + model_name + '/' + object_pk + '/',
+          data: $.toJSON({rating: rating}),
+          dataType: 'json'
+        }).done(function(response_data) {
+          $('.overall-rating').raty('readOnly', 'false');
+          $('.overall-rating').raty('score', response_data.overall_rating);
+          $('.overall-rating').raty('readOnly', 'true');
+        });
+      }
+    }));
   });
 </script>
 {% endblock %}
