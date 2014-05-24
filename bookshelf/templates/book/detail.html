@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% load staticfiles %}
 
-{% block page_title %}Reviews of {{ book.title }}, from {{ book.author }}{% if book.illustrator and book.illustrator.pk != book.author.pk %} and {{ book.illustrator }}{% endif %}{% endblock %}
+{% block page_title %}{{ book.title }} ({{ book.author }}{% if book.illustrator and book.illustrator != book.author %}, {{ book.illustrator }}{% endif %}) - Reviews{% endblock %}
 
 {% block content %}
   <div class="row">
