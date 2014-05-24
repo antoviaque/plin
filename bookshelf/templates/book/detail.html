@@ -15,11 +15,11 @@
       <div class="rating-row row">
         <div class="rating-label large-2 medium-2 columns">Plin rating:</div>
         <div class="rating-value large-10 medium-10 columns">
-          <div class="rating" data-rating="{{ book_rating }}"
+          <div class="rating" data-rating="{{ book.overall_rating }}"
                               data-model="book"
                               data-pk="{{ book.pk }}"
                               data-read-only="true"></div>
-          <div class="votes">({{ book_nb_votes }} vote{{ book_nb_votes|pluralize }})</div>
+          <div class="votes">({{ book.rating_votes }} vote{{ book.rating_votes|pluralize }})</div>
         </div>
       </div>
       {% if request.user.is_authenticated %}
