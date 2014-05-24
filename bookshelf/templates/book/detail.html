@@ -7,14 +7,32 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="book-details row">
     <div class="large-4 medium-4 columns">
       <div class="cover">
         <img src="{{ book.cover.url }}" />
       </div>
-      <div class="rating" data-rating="{{ book_rating }}"
-                          data-model="book"
-                          data-pk="{{ book.pk }}"></div>
+      <div class="rating-row row">
+        <div class="rating-label large-2 medium-2 columns">Plin rating:</div>
+        <div class="rating-value large-10 medium-10 columns">
+          <div class="rating" data-rating="{{ book_rating }}"
+                              data-model="book"
+                              data-pk="{{ book.pk }}"
+                              data-read-only="true"></div>
+          <div class="votes">({{ book_nb_votes }} vote{{ book_nb_votes|pluralize }})</div>
+        </div>
+      </div>
+      {% if request.user.is_authenticated %}
+      <div class="rating-row row">
+        <div class="rating-label large-2 medium-2 columns">Your rating:</div>
+        <div class="rating-value large-10 medium-10 columns">
+          <div class="rating" data-rating="{{ book_user_rating }}"
+                              data-model="book"
+                              data-pk="{{ book.pk }}"
+                              data-read-only="false"></div>
+        </div>
+      </div>
+      {% endif %}
     </div>
     <div class="book-description large-8 medium-8 columns">
       <div class="row">

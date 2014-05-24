@@ -1,3 +1,20 @@
 .home .cover {
     height: 250px;
 }
+
+.book-details .cover {
+    margin-bottom: 5px;
+}
+
+.book-details .rating-row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.book-details .rating-row .rating {
+    display: inline;
+}
+
+.book-details .rating-row .votes {
+    display: inline;
+}

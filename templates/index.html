@@ -133,9 +133,7 @@
         starOff : 'star-off.png',
         starOn  : 'star-on.png',
         size    : 24,
-        {% if read_only %}
-        readOnly: true,
-        {% endif %}
+        readOnly: $(rating_dom).data('read-only'),
         score   : function() {
           return $(this).attr('data-rating');
         },

@@ -91,14 +91,14 @@ class Book(TimeStampedModel):
         else:
             return pyisbn.convert(self.isbn)
 
-    def get_display_rating(self, request):
+    def get_user_rating(self, request):
         """
-        The rating to display for a given book, given the request context (user/anonymous, IP...)
+        The rating the request user gave for a given book
         """
         if request.user.is_authenticated():
             rating = self.rating.get_rating_for_user(request.user, request.META['REMOTE_ADDR'])
         else:
-            rating = self.rating.score
+            rating = None
         return rating
 
     def set_user_rating(self, request, rating):
