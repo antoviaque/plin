@@ -17,8 +17,8 @@ def book_search(request):
     context = {'book_list': book_list}
     return render(request, 'book/search.html', context)
 
-def book_detail(request, book_pk):
-    book = get_object_or_404(Book, pk=book_pk)
+def book_detail(request, book_slug):
+    book = get_object_or_404(Book, slug=book_slug)
     context = {
         'book': book,
         'book_user_rating': book.get_user_rating(request),

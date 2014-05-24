@@ -8,6 +8,7 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 from django_languages.fields import LanguageField
 
+from autoslug import AutoSlugField
 from djangoratings.fields import RatingField
 from south.modelsinspector import add_introspection_rules
 
@@ -63,6 +64,7 @@ class Keyword(TimeStampedModel):
 
 class Book(TimeStampedModel):
     title = models.CharField(max_length=200)
+    slug = AutoSlugField(populate_from='title')
     subtitle = models.CharField(max_length=200, blank=True)
     isbn = models.CharField(max_length=13, unique=True, validators=[validate_isbn])
     author = models.ForeignKey(Author)
