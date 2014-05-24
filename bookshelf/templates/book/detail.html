@@ -35,58 +35,58 @@
       {% endif %}
     </div>
     <div class="book-description large-8 medium-8 columns">
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Título</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.title }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Título</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.title }}</div>
       </div>
       {% if book.subtitle %}
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Subtítulo</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.title }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Subtítulo</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.title }}</div>
       </div>
       {% endif %}
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Idioma</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.get_language_display }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Idioma</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.get_language_display }}</div>
       </div>
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Autor</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.author }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Autor</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.author }}</div>
       </div>
       {% if book.illustrator %}
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Ilustrador</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.illustrator }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Ilustrador</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.illustrator }}</div>
       </div>
       {% endif %}
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Editorial</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.editor }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Editorial</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.editor }}</div>
       </div>
       {% if book.collection %}
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Coleção</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.collection }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Coleção</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.collection }}</div>
       </div>
       {% endif %}
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Nível de leitor</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.reader_level }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Nível de leitor</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.reader_level }}</div>
       </div>
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">N° de páginas</div>
-        <div class="book-value large-10 medium-10 columns">{{ book.nb_pages }}</div>
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">N° de páginas</div>
+        <div class="book-value large-9 medium-9 columns">{{ book.nb_pages }}</div>
       </div>
-      <div class="row">
-        <div class="book-label large-2 medium-2 columns">Tema</div>
-        <div class="book-value large-10 medium-10 columns">
+      <div class="book-description-row row">
+        <div class="book-label large-3 medium-3 columns">Tema</div>
+        <div class="book-value large-9 medium-9 columns">
           {% for keyword in book.keywords.all %}
             {{ keyword }}
           {% endfor %}
         </div>
       </div>
 
-      <div class="row">
+      <div class="book-description-row row">
         <div class="large-12 medium-12 columns">
           <h3>Synopsis</h3>
           <div>{{ book.synopsis|linebreaks }}</div>

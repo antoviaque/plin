@@ -18,3 +18,12 @@
 .book-details .rating-row .votes {
     display: inline;
 }
+
+.book-details .book-description .book-description-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.book-details .book-description .book-description-row .book-label {
+    font-weight: bold;
+}
