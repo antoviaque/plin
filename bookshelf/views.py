@@ -13,7 +13,7 @@ from bookshelf.models import Book
 # Views ###########################################################################################
 
 def book_search(request):
-    book_list = Book.objects.all().order_by('-pub_date')[:10]
+    book_list = Book.objects.all().order_by('-pub_year', '-created')[:10]
     context = {'book_list': book_list}
     return render(request, 'book/search.html', context)
 
