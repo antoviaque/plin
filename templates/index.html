@@ -91,9 +91,6 @@
   $(document).foundation();
 </script>
 
-<script src='{% static "js/vendor/jquery.cookie.js" %}'></script>
-<script src='{% static "js/vendor/jquery.json.min.js" %}'></script>
-<script src='{% static "js/vendor/jquery.raty.min.js" %}'></script>
 <script type="text/javascript">
   $(function() {
     var csrftoken = $.cookie('csrftoken');
@@ -125,33 +122,9 @@
         }
       }
     });
-
-    $.fn.raty.defaults.path = '{% static "img/rating" %}';
-
-    $('.rating').each(function(index, rating_dom) {
-      $(rating_dom).raty({
-        starOff : 'star-off.png',
-        starOn  : 'star-on.png',
-        size    : 24,
-        readOnly: $(rating_dom).data('read-only'),
-        score   : function() {
-          return $(this).attr('data-rating');
-        },
-        click   : function(rating, evt) {
-          var model_name = $(this).data('model'),
-              object_pk = $(this).data('pk');
-
-          $.ajax({
-            type: 'POST',
-            url: '/bookshelf/rate/' + model_name + '/' + object_pk + '/',
-            data: $.toJSON({rating: rating}),
-            dataType: 'json'
-          });
-        }
-      });
-    });
   });
 </script>
+{% block additional_js %}{% endblock %}
 
 </body>
 </html>

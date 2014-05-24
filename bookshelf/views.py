@@ -30,4 +30,8 @@ def book_rate(request, book_pk):
     data = json.loads(request.body)
     book = get_object_or_404(Book, pk=book_pk)
     book.set_user_rating(request, data['rating'])
-    return HttpResponse(json.dumps({}), content_type="application/json")
+
+    context = {
+        'overall_rating': book.overall_rating,
+    }
+    return HttpResponse(json.dumps(context), content_type="application/json")
