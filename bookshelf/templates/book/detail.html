@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 {% load staticfiles %}
 
+{% block page_title %}Reviews of {{ book.title }}, from {{ book.author }}{% if book.illustrator and book.illustrator.pk != book.author.pk %} and {{ book.illustrator }}{% endif %}{% endblock %}
+
 {% block content %}
   <div class="row">
     <div class="large-12 medium-12 columns">
