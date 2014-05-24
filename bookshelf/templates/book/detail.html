@@ -123,6 +123,8 @@
         var model_name = $(this).data('model'),
             object_pk = $(this).data('pk');
 
+        $('body').css({'cursor': 'wait'});
+        $(evt.target).css({'cursor': 'wait'});
         $.ajax({
           type: 'POST',
           url: '/bookshelf/rate/' + model_name + '/' + object_pk + '/',
@@ -133,6 +135,8 @@
                                           .raty('score', response_data.overall_rating)
                                           .raty('readOnly', 'true');
           $('.rating-votes', overall_rating_dom).html(response_data.rating_votes);
+          $('body').css({'cursor':'default'})
+          $(evt.target).css({'cursor': 'pointer'});
         });
       }
     }));
