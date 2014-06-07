@@ -3,5 +3,6 @@
 /media/covers/*.*
 /plin.log
 /build
+/collected-static
 *~
 *.pyc
