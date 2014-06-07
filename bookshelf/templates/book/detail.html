@@ -64,10 +64,14 @@
         <div class="book-label large-3 medium-3 columns">Editorial</div>
         <div class="book-value large-9 medium-9 columns">{{ book.editor }}</div>
       </div>
-      {% if book.collection %}
+      {% if book.collection.count %}
       <div class="book-description-row row">
         <div class="book-label large-3 medium-3 columns">Coleção</div>
-        <div class="book-value large-9 medium-9 columns">{{ book.collection }}</div>
+        <div class="book-value large-9 medium-9 columns">
+          {% for collection in book.collection.all %}
+            {{ collection }}<br />
+          {% endfor %}
+        </div>
       </div>
       {% endif %}
       <div class="book-description-row row">
