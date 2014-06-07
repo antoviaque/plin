@@ -70,7 +70,7 @@ class Book(TimeStampedModel):
     author = models.ForeignKey(Author)
     illustrator = models.ForeignKey(Author, null=True, blank=True, related_name='book_illustrator_set')
     editor = models.ForeignKey(Editor)
-    collection = models.ForeignKey(Collection, null=True, blank=True)
+    collection = models.ManyToManyField(Collection)
     language = LanguageField()
     pub_year = models.IntegerField('year published')
     reader_level = models.ForeignKey(ReaderLevel)
