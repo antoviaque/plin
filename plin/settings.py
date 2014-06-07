@@ -37,6 +37,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -113,6 +114,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+)
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -129,6 +135,11 @@ LOGIN_REDIRECT_URL = '/'
 
 # Ratings
 RATINGS_VOTES_PER_IP = 3
+
+
+# Admin
+
+GRAPPELLI_ADMIN_TITLE = 'Plin - Admin'
 
 
 # Logging
