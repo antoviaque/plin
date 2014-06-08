@@ -27,3 +27,45 @@
 .book-details .book-description .book-description-row .book-label {
     font-weight: bold;
 }
+
+.book-details .user-review {
+    background-color: #f9f9f9;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    border-left: 10px solid #ccc;
+}
+
+.book-details .user-review .review-username {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.book-details .user-review .review-dateadded {
+    font-style: italic;
+    font-size: 0.9em;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+
+.book-details .user-review .review-content {
+    padding-top: 10px;
+    border-top: 1px solid;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+.book-details .user-review .review-content:before {
+    padding-top: 10px;
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+.book-details .user-review .review-content p {
+    display: inline;
+}

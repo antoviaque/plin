@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'djangoratings',
     'selectable',
+    'suit_redactor',
     'bookshelf',
 )
 

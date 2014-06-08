@@ -8,7 +8,8 @@ from admintimestamps import TimestampedAdminMixin
 from selectable.forms import widgets
 
 from .lookups import KeywordLookup
-from .models import Author, Book, Collection, Editor, Keyword, ReaderLevel
+from .models import Author, Book, Collection, Editor, Keyword, ReaderLevel, Review
+from .reviews import ReviewAdmin
 
 
 # Main ############################################################################################
@@ -34,4 +35,5 @@ admin.site.register(Collection, TimestampedAdmin)
 admin.site.register(Editor, TimestampedAdmin)
 admin.site.register(Keyword, TimestampedAdmin)
 admin.site.register(ReaderLevel, TimestampedAdmin)
+admin.site.register(Review, ReviewAdmin)
 

@@ -3,6 +3,7 @@
 
 import pyisbn
 
+from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
@@ -11,6 +12,8 @@ from django_languages.fields import LanguageField
 from autoslug import AutoSlugField
 from djangoratings.fields import RatingField
 from south.modelsinspector import add_introspection_rules
+
+from .htmlcleaner import cleaner
 
 
 # South ###########################################################################################
@@ -77,6 +80,23 @@ class Keyword(TimeStampedModel):
         return self.name
 
 
+class Review(TimeStampedModel):
+    book = models.ForeignKey('Book')
+    user = models.ForeignKey(User)
+    content = models.TextField()
+
+    class Meta:
+        unique_together = ('book', 'user')
+
+    def __unicode__(self):
+        return u'{}: "{}"'.format(self.user, self.content)
+
+    def save(self, *args, **kwargs):
+        # Ensure user-submitted HTML content is always safe
+        self.content = cleaner.clean_html(self.content)
+        super(Review, self).save(*args, **kwargs)
+
+
 class Book(TimeStampedModel):
     title = models.CharField(max_length=200)
     slug = AutoSlugField(populate_from='title')
@@ -94,9 +114,6 @@ class Book(TimeStampedModel):
     keywords = models.ManyToManyField(Keyword)
     synopsis = models.TextField()
     rating = RatingField(range=5, can_change_vote=True)
-
-    # TODO: use plugins for these fields
-    #comments = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.title

@@ -12,6 +12,8 @@ django-grappelli==2.5.3
 django-languages==0.1
 django-ratings==0.3.7
 django-selectable==0.8.0
+django-suit-redactor==0.0.2
+lxml==3.3.5
 oauthlib==0.6.1
 pyisbn==1.0.0
 python-openid==2.2.5

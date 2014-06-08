@@ -8,7 +8,11 @@
   <title>{% block page_title %}Reviews of books for kids{% endblock %} - Plin</title>
   <link rel="stylesheet" href='{% static "css/vendor/foundation.css" %}' />
   <link rel="stylesheet" href='{% static "css/main.css" %}' />
+  <link rel="stylesheet" href='{% static "redactor/redactor.css" %}' />
   <script src='{% static "js/vendor/modernizr.js" %}'></script>
+  <script src='{% static "js/vendor/jquery.js" %}'></script>
+  <script src='{% static "redactor/redactor.min.js" %}'></script>
+  <script src='{% static "redactor/pt_br.js" %}'></script>
 </head>
 <body>
 
@@ -85,7 +89,6 @@
   </div>
 </div>
 
-<script src='{% static "js/vendor/jquery.js" %}'></script>
 <script src='{% static "js/vendor/foundation.min.js" %}'></script>
 <script type="text/javascript">
   $(document).foundation();
