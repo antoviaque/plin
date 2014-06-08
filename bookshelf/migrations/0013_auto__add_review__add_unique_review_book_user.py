@@ -13,27 +13,22 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
+            ('book', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bookshelf.Book'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('content', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal(u'bookshelf', ['Review'])
 
-        # Adding M2M table for field reviews on 'Book'
-        m2m_table_name = db.shorten_name(u'bookshelf_book_reviews')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('book', models.ForeignKey(orm[u'bookshelf.book'], null=False)),
-            ('review', models.ForeignKey(orm[u'bookshelf.review'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['book_id', 'review_id'])
+        # Adding unique constraint on 'Review', fields ['book', 'user']
+        db.create_unique(u'bookshelf_review', ['book_id', 'user_id'])
 
 
     def backwards(self, orm):
+        # Removing unique constraint on 'Review', fields ['book', 'user']
+        db.delete_unique(u'bookshelf_review', ['book_id', 'user_id'])
+
         # Deleting model 'Review'
         db.delete_table(u'bookshelf_review')
-
-        # Removing M2M table for field reviews on 'Book'
-        db.delete_table(db.shorten_name(u'bookshelf_book_reviews'))
 
 
     models = {
@@ -91,7 +86,6 @@ class Migration(SchemaMigration):
             'rating_score': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
             'rating_votes': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0', 'blank': 'True'}),
             'reader_level': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bookshelf.ReaderLevel']"}),
-            'reviews': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['bookshelf.Review']", 'symmetrical': 'False'}),
             'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'title'"}),
             'subtitle': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
             'synopsis': ('django.db.models.fields.TextField', [], {}),
@@ -126,12 +120,13 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '200'})
         },
         u'bookshelf.review': {
-            'Meta': {'ordering': "('-modified', '-created')", 'object_name': 'Review'},
+            'Meta': {'unique_together': "(('book', 'user'),)", 'object_name': 'Review'},
+            'book': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bookshelf.Book']"}),
             'content': ('django.db.models.fields.TextField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
