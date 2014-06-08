@@ -37,23 +37,35 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = (
+    # Admin
     'grappelli',
     'django.contrib.admin',
+    'selectable',
+
+    # Django
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     'south',
     'debug_toolbar',
+
+    # Auth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    # Rating
     'djangoratings',
-    'selectable',
+
+    # Review
     'suit_redactor',
+
+    # Bookshelf
     'bookshelf',
 )
 
