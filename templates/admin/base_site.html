@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ title }} | Plin Admin{% endblock title %}
+
+{% block extrahead %}
+<link rel="stylesheet" href='{% static "css/admin.css" %}' />
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">Plin Admin</h1>
+{% endblock branding %}
+
+{% block nav-global %}{% endblock nav-global %}

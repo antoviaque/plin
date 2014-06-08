@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^selectable/', include('selectable.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
