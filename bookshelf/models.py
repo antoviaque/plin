@@ -30,12 +30,18 @@ def validate_isbn(isbn):
 class Author(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return self.name
 
 
 class Collection(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __unicode__(self):
         return self.name
@@ -44,6 +50,9 @@ class Collection(TimeStampedModel):
 class Editor(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return self.name
 
@@ -51,12 +60,18 @@ class Editor(TimeStampedModel):
 class ReaderLevel(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return self.name
 
 
 class Keyword(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __unicode__(self):
         return self.name
