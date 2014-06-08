@@ -140,9 +140,11 @@ RATINGS_VOTES_PER_IP = 3
 
 
 # Admin
-
 GRAPPELLI_ADMIN_TITLE = 'Plin - Admin'
 
+
+# Session
+SESSION_COOKIE_AGE = 157680000 # 5 years
 
 # Logging
 
