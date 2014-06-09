@@ -116,7 +116,7 @@ class Book(TimeStampedModel):
     rating = RatingField(range=5, can_change_vote=True)
 
     def __unicode__(self):
-        return self.title
+        return self.slug
 
     @property
     def isbn_10(self):
