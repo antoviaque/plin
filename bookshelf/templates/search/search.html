@@ -6,13 +6,11 @@
       <h3>Search results for « {{ query }} »</h3>
 
       {% for result in page.object_list %}
-          <p>
-            <a href="{% url 'book_detail' result.object.slug %}">
-              <img class="cover" src="{{ result.object.cover.url }}" />
-            </a>
-          </p>
+        <a href="{% url 'book_detail' result.object.slug %}">
+          <img class="cover" src="{{ result.object.cover.url }}" />
+        </a>
       {% empty %}
-          <p>No results found.</p>
+        <p>No results found.</p>
       {% endfor %}
 
       {% if page.has_previous or page.has_next %}
