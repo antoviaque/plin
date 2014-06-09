@@ -13,10 +13,10 @@ from .reviews import ReviewForm
 
 # Views ###########################################################################################
 
-def book_search(request):
+def index(request):
     book_list = Book.objects.all().order_by('-pub_year', '-created')[:10]
     context = {'book_list': book_list}
-    return render(request, 'book/search.html', context)
+    return render(request, 'book/index.html', context)
 
 def book_detail(request, book_slug):
     book = get_object_or_404(Book, slug=book_slug)

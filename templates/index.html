@@ -16,23 +16,21 @@
 </head>
 <body>
 
-<div class="row">
-  <form>
-    <div class="large-4 columns">
+<div class="header row">
+  <form method="get" action="/bookshelf/search">
+    <div class="large-2 columns">
       <h1><a href="/"><img src="/static/img/logo.png"></a></h1>
     </div>
-    <!--
-    <div class="large-6 columns">
-      <input type="text" placeholder="Procurar" />
+
+    <div class="large-10 columns">
+      <input type="hidden" value="bookshelf.book" name="models"></input>
+      <input class="search-field" type="text" placeholder="Procurar" name="q" value="{{ form.q.value }}" />
+      <input class="search-submit small button" type="submit" value="Buscar"></input>
     </div>
-    <div class="large-2 columns">
-      <a href="#" class="small button">Buscar</a>
-    </div>
-    -->
   </form>
 </div>
 
-<div class="row">
+<div class="subheader row">
   <div class="large-12 columns">
     <div class="panel">
       <div class="row">

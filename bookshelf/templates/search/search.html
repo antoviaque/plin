@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  {% if query %}
+    <div class="search-results">
+      <h3>Search results for « {{ query }} »</h3>
+
+      {% for result in page.object_list %}
+          <p>
+            <a href="{% url 'book_detail' result.object.slug %}">
+              <img class="cover" src="{{ result.object.cover.url }}" />
+            </a>
+          </p>
+      {% empty %}
+          <p>No results found.</p>
+      {% endfor %}
+
+      {% if page.has_previous or page.has_next %}
+        <div>
+          {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+          |
+          {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

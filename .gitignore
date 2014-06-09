@@ -4,5 +4,6 @@
 /plin.log
 /build
 /collected-static
+/.whoosh_index
 *~
 *.pyc

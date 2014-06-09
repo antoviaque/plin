@@ -1,6 +1,33 @@
+
+/* Header ************************************************/
+
+.header .search-field {
+    width: 600px;
+    margin-top: 25px;
+}
+
+.header .search-submit {
+    position: absolute;
+    top: 20px;
+    right: 90px;
+}
+
+
+/* Home **************************************************/
+
 .home .cover {
     height: 250px;
 }
+
+
+/* Search ************************************************/
+
+.search-results .cover {
+    height: 250px;
+}
+
+
+/* Book details ******************************************/
 
 .book-details .cover {
     margin-bottom: 5px;

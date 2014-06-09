@@ -15,7 +15,7 @@ admin.autodiscover()
 # URLs ############################################################################################
 
 urlpatterns = patterns('',
-    url(r'^$', 'bookshelf.views.book_search', name='home'),
+    url(r'^$', 'bookshelf.views.index', name='home'),
     url(r'^bookshelf/', include('bookshelf.urls')),
 
     url(r'^accounts/', include('allauth.urls')),

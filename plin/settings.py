@@ -65,6 +65,9 @@ INSTALLED_APPS = (
     # Review
     'suit_redactor',
 
+    # Search
+    'haystack',
+
     # Bookshelf
     'bookshelf',
 )
@@ -151,6 +154,14 @@ LOGIN_REDIRECT_URL = '/'
 # Ratings
 RATINGS_VOTES_PER_IP = 3
 
+
+# Search
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, '.whoosh_index'),
+    },
+}
 
 # Admin
 GRAPPELLI_ADMIN_TITLE = 'Plin - Admin'

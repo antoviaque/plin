@@ -1,0 +1,9 @@
+{{ object.title }}
+{{ object.subtitle }}
+{{ object.isbn }}
+{{ object.author.name }}
+{{ object.illustrator.name }}
+{{ object.editor.name }}
+{% for collection in object.collection.all %}{{ collection }}{% endfor %}
+{% for keyword in object.keywords.all %}{{ keyword }}{% endfor %}
+{{ object.synopsis }}
